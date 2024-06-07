@@ -5,26 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/sobre.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="scripts/jquery.min.js"></script>
+    <link rel="stylesheet" href="assets/css/all.min.css">
     <title>Leandro Zanatta</title>
 </head>
 <body>
-    <nav>
-        <div class="header-itens">
-            <div class="header-logo">
-                <img src="assets/img/coder.png" alt="Logo">
-                <a href="index.html">Leandro Zanatta Muchiuti</a>
-            </div>
-            <a href="sobre.html">Sobre</a>
+    <header class="header-itens">
+        <div class="header-logo">
+            <img src="assets/img/coder.png" alt="Logo">
+            <a href="index.html">Leandro Zanatta Muchiuti</a>
         </div>
-    </nav>
+        <a href="sobre.html">Sobre</a>
+        <div class="menu-drop">
+            <button class="btn-drop" id="btn-drop">&#9776;</button>
+            <div class="dropdown-content">  
+                <a href="index.html">Inicio</a>
+                <a href="sobre.html">Sobre</a>
+            </div>
+        </div>
+    </header>
     <main class="main-content">
-
-        <div class="main-sobre">
-            <h3 class="sobre-text">
-                Analista e desenvolvedor há mais de 3 anos com foco em desenvolvimento utilizando .Net Core e .NET Framework.
-            </h3>
+        <div class="intro-sobre">
+            <h1>
+                Analista/ desenvolvedor Experiência com .Net Core e .NET Framework.
+            </h1>
             <p></p>
                 Até o momento, tive a experiência de trabalhar apenas em uma empresa ligada ao setor bancário. Devido ao tamanho reduzido da minha equipe, 
                 desempenhava a função de desenvolvedor FullStack. Minhas responsabilidades iam desde o levantamento de requisitos e a descrição de atividades 
@@ -40,11 +44,11 @@
                 minhas habilidades e conhecimentos na área.
         </div>
 
-        <h3 class="sobre-text">Experiência Profissional</h3>
+        <h3>Experiência Profissional</h3>
 
         <div class="info-div">
             <article class="art-info">
-                <h4>Analista de Engenharia de TI</h4>
+                <h4>Analista</h4>
                 <p>
                     @PDTEC
                 <p>
@@ -55,15 +59,15 @@
                 <p>
                     @PDTEC
                 <p>
-                    Abr - 2021 |  Abr - 2023
+                    Abr - 2021 | Mai - 2023
             </article>
         </div>
 
-        <h3 class="sobre-text">Formação Acadêmica</h3>
+        <h3>Formação Acadêmica</h3>
 
         <div class="info-div">
             <article class="art-info">
-                <h4>Análise e desenvolvimento de sistemas</h4>
+                <h4>Análise de sistemas</h4>
                 <p>
                     @UNIP
                 <p>
@@ -83,4 +87,5 @@
         @Leandro Zanatta Muchiuti 2024
     </footer>
 </body>
+<script src="scripts/scripts.js"></script>
 </html>

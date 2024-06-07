@@ -1,78 +1,103 @@
 $(document).ready(function() {
-    const projetos = $('.projeto-item');
-    const btnPrev = $('.prev');
-    const btnNext = $('.next');
+    const projetos = $('.projeto-item') 
+    IniciarProjeto(projetos)
+    AdicionarEventosClick(projetos)
+})
 
-    function atualizarBotoes() {
-        const projetoAtivo = projetos.filter('.projeto-ativo');
-        const proximoProjeto = projetoAtivo.next('.projeto-item');
-        const projetoAnterior = projetoAtivo.prev('.projeto-item');
+function IniciarProjeto(projetos){
+    const resizeObserver = new ResizeObserver(() => {
+        ObservarJanelaAjustarVisualizacaoProjetos()
+    });
+    resizeObserver.observe(document.body);
 
-        btnNext.prop('disabled', proximoProjeto.length === 0);
-        btnPrev.prop('disabled', projetoAnterior.length === 0);
-    }
 
-    function AdicionarCirculosVisualizacaoProjetos() {
-        $('.container-circulos').remove();
-        const projetoAtivo = $('.projeto-ativo:first');
-        let componentesAdicionados = '<div class="container-circulos">';
-        
-        projetos.each(function() {
-            componentesAdicionados += $(this).hasClass('projeto-ativo') 
-                ? '<div class="circulo-projetos view-circulo"></div>' 
-                : '<div class="circulo-projetos"></div>';
-        });
+    ObservarJanelaAjustarVisualizacaoProjetos();
+    AdicionarCirculosVisualizacaoProjetos(projetos);
+    AtualizarBotoes(projetos);
+}
 
-        componentesAdicionados += '</div>';
-        projetoAtivo.append(componentesAdicionados);
-    }
+function AdicionarEventosClick(projetos){
+    $(".btn-drop").on("click", function() {
+        var dropDown = $(".dropdown-content").first()
+        dropDown.toggleClass("show")
+    })
 
-    function mudarProjeto(direcao) {
-        const projetoAtivo = projetos.filter('.projeto-ativo');
-        const novoProjeto = direcao === 'next' 
-            ? projetoAtivo.next('.projeto-item') 
-            : projetoAtivo.prev('.projeto-item');
-        if (novoProjeto.length > 0) {
-            projetoAtivo.removeClass('projeto-ativo');
-            novoProjeto.addClass('projeto-ativo');
-            atualizarBotoes();
-            AdicionarCirculosVisualizacaoProjetos();
+    $(window).on("click", function(event) {
+        if (!$(event.target).closest(".btn-drop").length) {
+            $(".dropdown-content").removeClass("show")
         }
-    }
+    })
+
+    const btnPrev = $('.prev')
+    const btnNext = $('.next')
 
     btnNext.click(function() {
-        mudarProjeto('next');
+        MudarProjeto('next', projetos, this)
     });
 
     btnPrev.click(function() {
-        mudarProjeto('prev');
+        MudarProjeto('prev', projetos, this)
     });
+}
 
-    AdicionarCirculosVisualizacaoProjetos();
-    atualizarBotoes();
-
-    function checkWindowSize() {
-        var width = window.innerWidth;
-        var height = window.innerHeight;
-        
-        var elementoNew = $('.new-parentButton') 
-        if (width <= 980) {
-            var divButtons = $('.navigation-buttons')
-            if(elementoNew.length == 0){
-                divButtons.wrapAll('<div class="new-parentButton"></div>');
-            }
-        }else{
-            if(elementoNew.length > 0){
-                elementoNew.children().unwrap();
-            }
+function ObservarJanelaAjustarVisualizacaoProjetos() {
+    var width = window.innerWidth;
+    
+    var novoComponente = $('.novo-componente') 
+    if (width <= 980) {
+        var divButtons = $('.navigation-buttons')
+        if(novoComponente.length == 0){
+            divButtons.wrapAll('<div class="novo-componente"></div>');
+        }
+    }else{
+        if(novoComponente.length > 0){
+            novoComponente.children().unwrap()
         }
     }
+}
 
-    const resizeObserver = new ResizeObserver(() => {
-        checkWindowSize();
+function AdicionarCirculosVisualizacaoProjetos(projetos) {
+    $('.container-circulos').remove()
+    const projetoAtivo = $('.projeto-ativo:first');
+    let componentesAdicionados = '<div class="container-circulos">'
+    
+    projetos.each(function() {
+        componentesAdicionados += $(this).hasClass('projeto-ativo') 
+            ? '<div class="circulo-projetos view-circulo"></div>' 
+            : '<div class="circulo-projetos"></div>'
     });
 
-    resizeObserver.observe(document.body);
+    componentesAdicionados += '</div>';
 
-    checkWindowSize();
-});
+    projetoAtivo.append(componentesAdicionados)
+}
+
+function MudarProjeto(direcao, projetos) {
+    const projetoAtivo = projetos.filter('.projeto-ativo')
+
+    const novoProjeto = direcao === 'next' 
+        ? projetoAtivo.next('.projeto-item') 
+        : projetoAtivo.prev('.projeto-item')
+
+    if (novoProjeto.length > 0) {
+        projetoAtivo.removeClass('projeto-ativo')
+        novoProjeto.addClass('projeto-ativo')
+
+        AtualizarBotoes(projetos)
+        AdicionarCirculosVisualizacaoProjetos(projetos);
+    }
+}
+
+function AtualizarBotoes(projetos) {
+    const projetoAtivo = projetos.filter('.projeto-ativo')
+    const proximoProjeto = projetoAtivo.next('.projeto-item')
+    const projetoAnterior = projetoAtivo.prev('.projeto-item')
+
+    const btnNext = $('.next')
+    const btnPrev = $('.prev')
+
+    btnNext.prop('disabled', proximoProjeto.length === 0)
+    btnPrev.prop('disabled', projetoAnterior.length === 0)
+}
+
+
